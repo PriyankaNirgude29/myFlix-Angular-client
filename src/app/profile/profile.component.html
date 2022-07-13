@@ -1,0 +1,57 @@
+<app-navbar></app-navbar>
+<div class="user-profile-page">
+    <!-- User Profile -->
+    <mat-card class="user-profile-card">
+        <mat-card-header class="user-profile-card-header">
+            <mat-card-title>Profile Information</mat-card-title>
+        </mat-card-header>
+
+        <!-- View Profile Information -->
+        <mat-card-content class="user-profile-card-content">
+            <p><b>Username:</b> {{user.Username}}</p>
+            <p><b>Email:</b> {{user.Email}}</p>
+            <p><b>Birthday:</b> {{user.Birthday | date }}</p>
+        </mat-card-content>
+
+        <!-- Edit Profile Information & Delete Profile -->
+        <mat-card-actions class="user-profile-actions">
+
+            <button mat-raised-button (click)="openEditProfileDialog()" color="primary">
+                <mat-icon>edit</mat-icon>
+                Edit Profile
+            </button>
+            <button mat-raised-button (click)="deleteProfile()" color="warn">
+                <mat-icon>delete_forever</mat-icon>
+                Delete Profile
+            </button>
+
+        </mat-card-actions>
+    </mat-card>
+   </div>
+    <div>
+        <h2 class="favs-header">Favorite Movies</h2>
+      <div *ngIf="displayElement; else message" class="movies-container">
+        
+        <mat-card *ngFor="let movie of favMovies; let i = index" class="favorite-movie">
+        
+        <mat-card-title>{{ movie.Title }}</mat-card-title>
+        <button
+        class="unfavorite-button"
+        mat-button
+        color="grey"
+        (click)="removeFav(movie._id)"
+      >
+        Unfavorite
+        <mat-icon [ngStyle]="{'color':'blue'}" (click)="removeFav(movie._id)">favorite</mat-icon>
+      </button>
+      <img class="movie-image" src="{{ movie.ImagePath }}" />
+        
+        
+        </mat-card>
+      </div>
+      <ng-template #message>
+        <h2>You don't have any favourite movies in your list</h2>
+      </ng-template>
+    </div>
+
+
